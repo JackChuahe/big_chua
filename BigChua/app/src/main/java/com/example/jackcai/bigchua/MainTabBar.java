@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -19,6 +20,8 @@ import com.example.jackcai.bigchua.translate.Translate;
 import com.example.jackcai.bigchua.videos.Videos;
 
 import org.w3c.dom.Text;
+
+import java.lang.reflect.Method;
 
 public class MainTabBar extends FragmentActivity implements View.OnClickListener,View.OnLayoutChangeListener {
     private Me fragmentMe;
@@ -269,7 +272,5 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
     }
 
 // 监听软键盘弹起
-
-
 
 }
