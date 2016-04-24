@@ -20,6 +20,8 @@
     android:paddingBottom="13dp"
     android:textStyle="bold"
     android:textColor="#303030"
+    android:ellipsize="end"
+    android:singleLine="true"
     android:text="当苏格兰口音遇上智能电梯"
     />
     <!--中间区域-->

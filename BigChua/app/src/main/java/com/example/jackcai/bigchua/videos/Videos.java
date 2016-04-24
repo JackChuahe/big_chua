@@ -274,8 +274,6 @@ class MyVideosAdapter extends BaseAdapter implements DownLoadImageable{
         holder.videoTYpe.setText(model.getVideoType());
         holder.commentCount.setText(model.getCommentCount());
         holder.playCoutDetail.setText(model.getPlayCountDetail());
-        holder.videoImg.setImageResource(R.drawable.biz_pic_wait_down_img);
-        holder.smallLogo.setImageResource(R.drawable.biz_input_pic_camera_icon);
         //大图片已经有缓存
 
         if(bitmapMapImgCache.containsKey(model.getImgUrl())) {
@@ -284,6 +282,7 @@ class MyVideosAdapter extends BaseAdapter implements DownLoadImageable{
         }else{
             //进行异步网络加载
             bitmapMapImgCache.put(model.getImgUrl(),videoImageBmp);
+            holder.videoImg.setImageBitmap(videoImageBmp);
             DownLoadImage loadImage = new DownLoadImage(context,this,position,model.getImgUrl(),BIG_IMG_TYPE);
             loadImage.execute(model.getImgUrl());
         }
@@ -293,7 +292,9 @@ class MyVideosAdapter extends BaseAdapter implements DownLoadImageable{
             holder.smallLogo.setImageBitmap(logoBitmap);
         }else{
             //进行异步加载
+
             bitmapSmallLogoCache.put(model.getVideoTypeLogo(),smallLogoImageBmp);
+            holder.smallLogo.setImageBitmap(smallLogoImageBmp);
             DownLoadImage loadImage = new DownLoadImage(context,this,position,model.getVideoTypeLogo(),LOGO_TYPE);
             loadImage.execute(model.getVideoTypeLogo());
         }
@@ -370,6 +371,7 @@ class AsynGetData extends AsyncTask<String , Void,String>{
 
     @Override
     protected void onPostExecute(String s) {
+        super.onPostExecute(s);
         if (s != null){
             parseJsonData(s);
             videos.setModelList(modelList);
@@ -377,7 +379,7 @@ class AsynGetData extends AsyncTask<String , Void,String>{
         }else{
             Toast.makeText(videos.getContext(),"加载错误!",Toast.LENGTH_SHORT).show();
         }
-        super.onPostExecute(s);
+
     }
 
     /**

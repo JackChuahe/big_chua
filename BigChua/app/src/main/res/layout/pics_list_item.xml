@@ -12,7 +12,7 @@
         android:elevation="5dp"
         android:layout_marginRight="14dp">
         <TextView
-            android:id="@+id/video_title"
+            android:id="@+id/pic_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
@@ -20,14 +20,16 @@
             android:paddingBottom="13dp"
             android:textStyle="bold"
             android:textColor="#303030"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="当苏格兰口音遇上智能电梯"
             />
         <!--中间区域-->
         <!---->
 
         <ImageView
-            android:id="@+id/video_video_img"
-            android:layout_below="@+id/video_title"
+            android:id="@+id/pics_pic_img"
+            android:layout_below="@+id/pic_title"
             android:layout_width="match_parent"
 
             android:layout_height="185dp" />
@@ -42,7 +44,7 @@
             android:id="@+id/bottom"
             android:orientation="horizontal"
 
-            android:layout_below="@+id/video_video_img">
+            android:layout_below="@+id/pics_pic_img">
 
             <LinearLayout
 
@@ -88,11 +90,18 @@
                     android:textColor="#818181"
                     android:text="1"/>
                 <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginLeft="28dp"
-                    android:src="@drawable/biz_audio_play_share"/>
-
+                    android:src="@drawable/biz_news_special_pk_button_img_selected_right"/>
+                <TextView
+                    android:id="@+id/favor_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:textColor="#818181"
+                    android:text="1"/>
             </LinearLayout>
 
         </LinearLayout>
