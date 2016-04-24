@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ececec"
+    tools:context="com.example.jackcai.bigchua.translate.Translate">
+
+<LinearLayout
+    android:id="@+id/translate_activity_title_bar"
+    android:layout_width="match_parent"
+    android:background="#4052b5"
+    android:orientation="horizontal"
+    android:elevation="6dp"
+    android:layout_height="40dp">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textStyle="bold"
+    android:textColor="#FFFFFF"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:textSize="19sp"
+    android:text="Translate"/>
+</LinearLayout>
+    <RelativeLayout
+        android:layout_below="@+id/translate_activity_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/top_linearLayout"
+            android:layout_height="wrap_content">
+            <TextView
+                android:background="#FFFFFF"
+                android:text="自动检测语言（English）"
+                android:textStyle="bold"
+                android:paddingTop="14dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="100dp"
+                android:paddingLeft="4dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingRight="4dp"
+                android:background="#FFFFFF"
+                android:elevation="1dp"
+
+                android:textStyle="bold"
+                android:text="翻译>>"
+                android:id="@+id/dictionart_btn_translate"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:minLines="8"
+            android:maxLines="8"
+            android:id="@+id/dictionart_edt_input"
+
+            android:layout_below="@+id/top_linearLayout"
+            android:gravity="top"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:textColorHint="#c7c5c5"
+            android:hint="在此输入要翻译的文本"
+            android:scrollbars="vertical"
+            android:background="#ffffff"
+            android:elevation="8dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            android:id="@+id/dictionary_result_panel"
+
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/reult_title"
+                android:layout_height="wrap_content">
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:textStyle="bold"
+                    android:text="检索结果(中文)"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="14dp"
+                    android:paddingLeft="15dp"
+                    android:background="#FFFFFF"
+                    android:elevation="5dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="1dp"
+                android:id="@+id/dictionart_tv_result"
+                android:layout_below="@+id/reult_title"
+                android:layout_width="match_parent"
+                android:layout_height="185dp"
+                android:background="#FFFFFF"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="10dp"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_below="@+id/dictionart_edt_input"
+            android:layout_marginTop="13dp"
+
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/dictionart_list_view"
+                android:divider="#00000000"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

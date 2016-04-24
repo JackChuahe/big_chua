@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="279dp"
+    android:background="#ffffff"
+    android:layout_marginTop="14dp"
+    android:layout_marginBottom="3dp"
+    android:layout_marginLeft="14dp"
+    android:elevation="5dp"
+    android:layout_marginRight="14dp">
+<TextView
+    android:id="@+id/video_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingTop="13dp"
+    android:paddingBottom="13dp"
+    android:textStyle="bold"
+    android:textColor="#303030"
+    android:text="当苏格兰口音遇上智能电梯"
+    />
+    <!--中间区域-->
+    <!---->
+
+    <ImageView
+        android:id="@+id/video_video_img"
+        android:layout_below="@+id/video_title"
+        android:layout_width="match_parent"
+
+        android:layout_height="185dp" />
+        <TextView
+            android:id="@+id/play_count_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_above="@+id/bottom"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            android:paddingBottom="12dp"
+            android:text="03:29/1.7万播放"/>
+
+    <!--中间的播放按钮-->
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/biz_video_list_play_icon_big"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:id="@+id/bottom"
+        android:orientation="horizontal"
+
+        android:layout_below="@+id/video_video_img">
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_weight="2"
+            android:gravity="left"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/video_type_logo"
+                android:layout_width="28dp"
+                android:src="@drawable/small_logo"
+                android:layout_height="28dp" />
+            <TextView
+                android:id="@+id/video_type"
+                android:background="@drawable/corners_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="4dp"
+                android:paddingRight="7dp"
+                android:textSize="12sp"
+                android:text="流行MV"
+                android:layout_gravity="center"
+                android:paddingLeft="3dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingRight="20dp"
+            android:gravity="right">
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_gravity="right|center_vertical"
+                android:src="@drawable/biz_ask_detail_answer_write"/>
+            <TextView
+                android:id="@+id/comment_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:textColor="#818181"
+                android:text="1"/>
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="28dp"
+                android:src="@drawable/biz_audio_play_share"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
+</RelativeLayout>

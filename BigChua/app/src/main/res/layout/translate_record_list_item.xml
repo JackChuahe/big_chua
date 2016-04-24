@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingTop="6dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/dictionary_listitem_title"
+        android:text="you should know my tempture"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingBottom="5dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/dictionary_listitem_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/dictionary_listitem_title"
+        android:textSize="15sp"
+        android:text="你应该知道我的脾气"
+        android:textColor="#9e9a9a"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_below="@+id/dictionary_listitem_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/list_view_item_divider"/>
+</RelativeLayout>

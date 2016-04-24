@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_tab_toor_layout"
+    tools:context="com.example.jackcai.bigchua.MainTabBar">
+
+    <FrameLayout
+        android:id="@+id/frame_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/frameMenu"
+        android:layout_alignParentTop="true" >
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frameMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:layout_alignParentBottom="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/skin_tabbar_bg"
+            android:orientation="horizontal" >
+
+
+
+            <!-- 新闻 -->
+
+            <FrameLayout
+                android:id="@+id/layout_news"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:paddingBottom="3dp"
+                android:paddingTop="4dp"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/image_news"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="top|center"
+                    android:src="@drawable/biz_navigation_tab_news_select" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:id="@+id/tv_news"
+                    android:text="新闻"
+                    android:textColor="#535252"
+                    android:textSize="12sp" />
+            </FrameLayout>
+
+
+            <!-- 图片新闻 -->
+
+            <FrameLayout
+                android:id="@+id/layout_pics"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:paddingBottom="3dp"
+                android:paddingTop="4dp"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/image_pics"
+
+                    android:layout_gravity="top|center"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:src="@drawable/biz_navigation_tab_read_select" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:id="@+id/tv_pics"
+                    android:text="悦图"
+                    android:textColor="#535252"
+                    android:textSize="12sp" />
+            </FrameLayout>
+
+
+            <!-- 视频 -->
+
+            <FrameLayout
+                android:id="@+id/layout_video"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="3dp"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/image_video"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="top|center"
+                    android:src="@drawable/biz_navigation_tab_va_select" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:id="@+id/tv_video"
+                    android:textColor="#535252"
+                    android:text="视频"
+                    android:textSize="12sp" />
+            </FrameLayout>
+
+            <!-- 查词翻译 -->
+            <FrameLayout
+                android:id="@+id/layout_translate"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:paddingBottom="3dp"
+                android:paddingTop="4dp"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/image_translate"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="top|center"
+                    android:src="@drawable/biz_navigation_tab_topic_select" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:id="@+id/tv_translate"
+                    android:textColor="#535252"
+                    android:text="翻译"
+                    android:textSize="12sp" />
+            </FrameLayout>
+
+            <!-- 我的 -->
+            <FrameLayout
+                android:id="@+id/layout_me"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:paddingBottom="3dp"
+                android:paddingTop="4dp"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/image_me"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="top|center"
+                    android:src="@drawable/biz_navigation_tab_pc_select" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:textColor="#535252"
+                    android:text="我的"
+                    android:id="@+id/tv_me"
+                    android:textSize="12sp" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#dedddd" >
+        </LinearLayout>
+    </FrameLayout>
+
+</RelativeLayout>
