@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class Translate extends Fragment implements View.OnClickListener ,Adapter
     private QueryTask queryTask;
     private TranslateDB trDB ; // 新建一个db类
     private List<TranslateModel> list;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -49,6 +51,7 @@ public class Translate extends Fragment implements View.OnClickListener ,Adapter
         btn_translate = (Button)view.findViewById(R.id.dictionart_btn_translate);
         edtInput = (EditText)view.findViewById(R.id.dictionart_edt_input);
         tvResult = (TextView)view.findViewById(R.id.dictionart_tv_result);
+        progressBar = (ProgressBar)view.findViewById(R.id.translate_progressbar);
 
         searchPanel = (RelativeLayout)view. findViewById(R.id.dictionary_result_panel);
 
@@ -115,6 +118,7 @@ public class Translate extends Fragment implements View.OnClickListener ,Adapter
     public void onClick(View v) {
         String searhContent = edtInput.getText().toString().trim();
         if (searhContent.length() != 0) {
+            progressBar.setVisibility(View.VISIBLE);
             // 隐藏列表视图
             if (isListViewShow){
                 showSearchPanel();
@@ -144,6 +148,7 @@ public class Translate extends Fragment implements View.OnClickListener ,Adapter
         myListViewAdapter.setList(list);
         myListViewAdapter.notifyDataSetChanged();
         System.gc();
+        progressBar.setVisibility(View.GONE);
     }
 
 

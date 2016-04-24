@@ -3,8 +3,152 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#145524"
+    android:background="#e9e8e8"
     tools:context="com.example.jackcai.bigchua.me.Me">
+
+<LinearLayout
+    android:id="@+id/linear_layout_header_title"
+    android:layout_width="match_parent"
+    android:background="#3140a0"
+    android:paddingTop="45dp"
+    android:paddingBottom="26dp"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/me_user_header"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/biz_pc_main_info_profile_avatar_bg_dark"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/me_user_name_header_tv"
+        android:layout_below="@+id/me_user_header"
+        android:text="小小蔡"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="10dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+</LinearLayout>
+
+
+    <LinearLayout
+        android:paddingTop="15dp"
+        android:layout_below="@+id/linear_layout_header_title"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <!--用户名-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="#FFFFFF"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="23dp"
+                android:src="@drawable/biz_pc_main_promo"
+                android:layout_height="23dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:paddingTop="4dp"
+                android:text="昵      称"
+                android:paddingBottom="6dp"
+                android:layout_gravity="center"
+                android:textColor="#484848"
+                android:layout_marginLeft="15dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/me_nike_name_tv"
+                android:layout_width="match_parent"
+                android:text="小小擦蔡"
+                android:paddingTop="4dp"
+                android:textColor="#9c9a9a"
+                android:paddingBottom="6dp"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:paddingRight="40dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!--昵称-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="23dp"
+                android:src="@drawable/biz_pc_main_invitefriends"
+                android:layout_height="23dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:paddingTop="5dp"
+                android:text="用 户 名"
+                android:paddingBottom="5dp"
+                android:layout_gravity="center"
+                android:textColor="#484848"
+                android:layout_marginLeft="15dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/me_user_name_tv"
+                android:layout_width="match_parent"
+                android:text="18161167791"
+                android:paddingTop="4dp"
+                android:textColor="#9c9a9a"
+                android:paddingBottom="6dp"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:paddingRight="40dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <!--注销-->
+        <LinearLayout
+            android:id="@+id/me_user_zhuxiao_tv"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="23dp"
+                android:src="@drawable/biz_pc_main_wallet"
+                android:layout_height="23dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:paddingTop="5dp"
+                android:text="注     销"
+                android:paddingBottom="5dp"
+                android:layout_gravity="center"
+                android:textColor="#484848"
+                android:layout_marginLeft="15dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </RelativeLayout>

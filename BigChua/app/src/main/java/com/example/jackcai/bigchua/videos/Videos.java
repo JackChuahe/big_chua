@@ -16,12 +16,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jackcai.bigchua.R;
+import com.example.jackcai.bigchua.common.LoadMoreHolder;
 import com.example.jackcai.bigchua.utils.DownLoadImage;
 import com.example.jackcai.bigchua.utils.DownLoadImageable;
 
@@ -48,6 +50,8 @@ public class Videos extends Fragment implements AdapterView.OnItemClickListener{
     private ProgressBar progressBar;
     private static final String url = "http://c.m.163.com/nc/video/home/10-20.html";
 
+    private ProgressBar loadModePb;
+    private LinearLayout loadMoreLinear;
 
     @Nullable
     @Override
@@ -76,7 +80,7 @@ public class Videos extends Fragment implements AdapterView.OnItemClickListener{
      * 加载数据完成
      */
     public void loadDataFinished(){
-        myVideosAdapter = new MyVideosAdapter(modelList,getContext());
+        myVideosAdapter = new MyVideosAdapter(modelList,getContext(),this);
         listView.setAdapter(myVideosAdapter);
         listView.setOnItemClickListener(this);
         progressBar.setVisibility(View.GONE);
@@ -99,10 +103,12 @@ public class Videos extends Fragment implements AdapterView.OnItemClickListener{
             intent.setDataAndType(uri,"video/mp4");
             startActivity(intent);
         }
-
-
     }
 
+    public void getLoadMoreArgs(LinearLayout ly,ProgressBar pb){
+        this.loadMoreLinear = ly;
+        this.loadModePb = pb;
+    }
 }
 
 
@@ -116,16 +122,18 @@ class MyVideosAdapter extends BaseAdapter implements DownLoadImageable{
     private static final  int LOGO_TYPE = 0;
     private  static final int BIG_IMG_TYPE = 1;
     private Context context;
+    private Videos videos;
 
-    public MyVideosAdapter(List<VideoModel> list, Context context){
+    public MyVideosAdapter(List<VideoModel> list, Context context,Videos videos){
         this.modelList = list;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
+        this.videos = videos;
     }
 
     @Override
     public int getCount() {
-        return modelList.size();
+        return modelList.size() + 1;
     }
 
     @Override
@@ -140,8 +148,19 @@ class MyVideosAdapter extends BaseAdapter implements DownLoadImageable{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        if(position == modelList.size() ){
+            //加载最后一项 more
+            LoadMoreHolder moreHolder = new LoadMoreHolder();
+            convertView = inflater.inflate(R.layout.list_view_more,null);
+            moreHolder.ly = (LinearLayout)convertView.findViewById(R.id.list_item_load_more_button);
+            moreHolder.pb = (ProgressBar)convertView.findViewById(R.id.list_item_load_more_progressbar);
+            videos.getLoadMoreArgs(moreHolder.ly,moreHolder.pb);  //回传
+            return convertView;
+        }
+
         Holder holder = null;
-        if (convertView == null){
+        if (convertView == null || position == 0){
             holder = new Holder();
             convertView = inflater.inflate(R.layout.videos_list_view_item,null);
             holder.title = (TextView)convertView.findViewById(R.id.video_title);
@@ -212,6 +231,7 @@ class MyVideosAdapter extends BaseAdapter implements DownLoadImageable{
         TextView videoTYpe;
         TextView commentCount;
     }
+
 }
 
 
