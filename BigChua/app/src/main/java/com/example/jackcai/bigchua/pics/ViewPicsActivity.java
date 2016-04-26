@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPicsActivity extends AppCompatActivity {
+public class ViewPicsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ViewPager vp;
     private List<View> views;
@@ -38,6 +39,7 @@ public class ViewPicsActivity extends AppCompatActivity {
     private List<PicItemModel> picItemModelList = new ArrayList<PicItemModel>();
     private static Bitmap defaultImageBmp ;
     private TextView tvTitle;
+    private LinearLayout btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,9 @@ public class ViewPicsActivity extends AppCompatActivity {
         setContentView(R.layout.multi_pics_view_activity);
         getWindow().setFlags(Window.FEATURE_NO_TITLE, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //为得到的窗体设置状态标识
-       // tvTitle = (TextView)findViewById(R.id.item_pic_title_bar);
+        tvTitle = (TextView)findViewById(R.id.item_pic_title_bar);
+        btnBack = (LinearLayout)findViewById(R.id.view_pics_back);
+        btnBack.setOnClickListener(this);
         //initData();
         initViewPager();
     }
@@ -62,7 +66,7 @@ public class ViewPicsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String json = intent.getStringExtra("json");
         String title = intent.getStringExtra("title");
-       // tvTitle.setText(title);
+        tvTitle.setText(title);
 
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
         try
@@ -89,6 +93,15 @@ public class ViewPicsActivity extends AppCompatActivity {
 
         adapter = new MyPageAdapter(views);
         vp.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.view_pics_back:
+                finish();
+                break;
+        }
     }
 
 

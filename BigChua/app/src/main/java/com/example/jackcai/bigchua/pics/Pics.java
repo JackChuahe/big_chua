@@ -142,7 +142,6 @@ public class Pics extends Fragment implements AdapterView.OnItemClickListener {
             intent.putExtra("json" ,model.getImgList().toString());
             intent.putExtra("title",model.getTitle());
             startActivity(intent);
-           ;
         }
     }
 

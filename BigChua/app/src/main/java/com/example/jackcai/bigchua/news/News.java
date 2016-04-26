@@ -16,6 +16,7 @@ import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -29,6 +30,9 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.example.jackcai.bigchua.R;
 import com.example.jackcai.bigchua.UserVerify.LoginActivity;
+import com.example.jackcai.bigchua.pics.Pics;
+import com.example.jackcai.bigchua.pics.PicsModel;
+import com.example.jackcai.bigchua.pics.ViewPicsActivity;
 import com.example.jackcai.bigchua.utils.DownLoadImage;
 import com.example.jackcai.bigchua.utils.DownLoadImageable;
 
@@ -54,13 +58,20 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
 
     private ListView listView;
     private List<NewsModel> newsModelList;
-    private List<AdsModel> adsModelList;
+    private List<PicsModel> adsModelList;
     private MyNewsListAdapter adapter ;
     private ProgressBar loadPb;
-    private static String URL_HEAD = "http://c.m.163.com/nc/article/headline/T1348647909107/0-20.html?from=toutiao&size=20&passport=&devId=tJ9WJmNCbemaYAkn9hmvNg%3D%3D&lat=30T6CPAny3Qjfrm2aZ0Iyg%3D%3D&lon=TdJ6mqRwrgAvXDYm6qorxw%3D%3D&version=5.4.3&net=wifi&ts=1450750816&sign=JYtJRfoZ%2FZUob1Ul08iHiZVsutvrccBfEGkTdNMwqyl48ErR02zJ6%2FKXOnxX046I&encryption=1&canal=baidu_news";
-    private static String URL_NEWS_LIST = "http://r.inews.qq.com/getQQNewsUnreadList?uid=9bbb976dec28f6ae&omgbizid=bb4c10d2d92de041fc6a894637deac8ac5700050210b16&Cookie=%20lskey%3D%3B%20luin%3D%3B%20skey%3D%3B%20uin%3D%3B%20logintype%3D0%20&qn-rid=391487196&store=5&hw=TiantianVM_TianTian&devid=950790062947205&qn-sig=46f4c335f6311193104bf7d6218161b4&user_chlid=news_news_finance%2Cnews_news_ent%2Cnews_news_sports%2Cnews_news_tech%2Cnews_news_ssh%2Cnews_news_mil%2Cnews_news_lad&screen_width=600&mac=67%253Afd%253A0e%253A46%253A86%253A40&last_time=1450752215&chlid=news_news_top&appver=18_android_4.8.7&qqnetwork=wifi&forward=0&page=0&last_id=NEW2015122201243000&mid=fb7dd60a37d004a54e059fd9613257b8f2457515&imsi=310260835531535&omgid=13b925aa2f9a5446a1fabb239e0df59cb60a0010210b16&apptype=android&screen_height=1024";
+    private static String URL_HEAD = "http://info.3g.qq.com/g/photo/photo3/api/api.jsp?action=index_entry_list%2Cphoto4_channel_list&_t=1450753533729&cl_channel=manual&cl_page=1&cl_size=10&cl_openAd=1";
+    private static String URL_NEWS_LIST = "http://r.inews.qq.com/getQQNewsUnreadList?uid=9bbb976dec28f6ae&omgbizid=bb4c10d2d92de041fc6a894637deac8ac5700050210b16&Cookie=%20lskey%3D%3B%20luin%3D%3B%20skey%3D%3B%20uin%3D%3B%20logintype%3D0%20&qn-rid=391487196&store=5&hw=TiantianVM_TianTian&devid=950790062947205&qn-sig=46f4c335f6311193104bf7d6218161b4&user_chlid=news_news_finance%2Cnews_news_ent%2Cnews_news_sports%2Cnews_news_tech%2Cnews_news_ssh%2Cnews_news_mil%2Cnews_news_lad&screen_width=600&mac=67%253Afd%253A0e%253A46%253A86%253A40&last_time=1450752215&chlid=news_news_top&appver=18_android_4.8.7&qqnetwork=wifi&forward=0&page=";
+    private static String URL_NEWS_LIST_B = "&last_id=NEW2015122201243000&mid=fb7dd60a37d004a54e059fd9613257b8f2457515&imsi=310260835531535&omgid=13b925aa2f9a5446a1fabb239e0df59cb60a0010210b16&apptype=android&screen_height=1024";
     private SliderLayout sliderLayout;
     private RelativeLayout relativeLayout;
+    private int currentPage = 0;
+    private static final int MAX_PAGE = 10;
+    private boolean isLoading = false;
+
+    private ProgressBar pbLoadMore;
+    private LinearLayout lyLoadMore;
 
     @Nullable
     @Override
@@ -76,24 +87,40 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
         relativeLayout = (RelativeLayout) headerView.findViewById(R.id.header_frame);
         sliderLayout = (SliderLayout) headerView.findViewById(R.id.news_imgs_slider);
 
+        LayoutInflater footInflater = LayoutInflater.from(getContext());
+        View footView = footInflater.inflate(R.layout.list_view_more,null);
+        pbLoadMore = (ProgressBar) footView.findViewById(R.id.list_item_load_more_progressbar);
+        lyLoadMore = (LinearLayout)footView.findViewById(R.id.list_item_load_more_button);
 
+        listView.addFooterView(footView);
         listView.addHeaderView(relativeLayout);
         loadData();
         return view;
     }
 
     public void loadData(){
-        AsynGetNewsData loadHead = new AsynGetNewsData(this,1);
+        if (currentPage >= MAX_PAGE){
+            Toast.makeText(getContext(),"没有更多了!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        isLoading = true;
+        AsynDownLoadHeadPics loadHead = new AsynDownLoadHeadPics(this,1);
         loadHead.execute(URL_HEAD);
         AsynGetNewsData loadNewslist = new AsynGetNewsData(this,0);
-        loadNewslist.execute(URL_NEWS_LIST);
+        loadNewslist.execute(URL_NEWS_LIST+currentPage+URL_NEWS_LIST_B);
+        if (currentPage != 0 ){
+            lyLoadMore.setVisibility(View.GONE);
+            pbLoadMore.setVisibility(View.VISIBLE);
+        }
+        ++currentPage;
+
     }
     /**
      * 设置新闻数据
      * @param modeList
      * @param adsModelList
      */
-    public void setModelList(List<NewsModel> modeList,List<AdsModel> adsModelList,int type){
+    public void setModelList(List<NewsModel> modeList, List<PicsModel> adsModelList, int type){
         if (type == 0){
             if (this.newsModelList != null){
                 this.newsModelList.addAll(modeList);
@@ -111,9 +138,12 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
     }
 
     public void loadDataFinished( int type){
+        isLoading = false;
         if (type == 0){//新闻内容加载完成
             if (adapter != null){
                 adapter.notifyDataSetChanged();
+                lyLoadMore.setVisibility(View.VISIBLE);
+                pbLoadMore.setVisibility(View.GONE);
                 return;
             }
             loadPb.setVisibility(View.GONE);
@@ -127,26 +157,30 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
 
 
     public void loadHeader(){
+
         sliderLayout.setClickable(true);
         sliderLayout.setCustomAnimation(new DescriptionAnimation());
         sliderLayout.setPresetTransformer(SliderLayout.Transformer.Default);
         sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
-        for (AdsModel model : adsModelList) {
+        for (PicsModel model : adsModelList) {
             TextSliderView textSliderView = new TextSliderView(this.getActivity());
             textSliderView.description(model.getTitle());
-            textSliderView.image(model.getImgSrc());
+            textSliderView.image(model.getHeadImgUrl());
             textSliderView.setOnSliderClickListener(this);
             textSliderView.setScaleType(BaseSliderView.ScaleType.Fit);
             sliderLayout.addSlider(textSliderView);
         }
 
-        sliderLayout.stopAutoCycle();
+        sliderLayout.startAutoCycle();
     }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == newsModelList.size()){
+        if (position == newsModelList.size()+1 && !isLoading){//点击了最后一项
+            loadData();
             return;
-        }//
+        }else if (position == newsModelList.size()+1 && isLoading){
+            return;
+        }
         Intent intent = new Intent(getContext(),WebBrowser.class);
         intent.putExtra("title",newsModelList.get(position).getTitle());
         intent.putExtra("url",newsModelList.get(position).getContentUrl());
@@ -159,7 +193,11 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
      */
     @Override
     public void onSliderClick(BaseSliderView slider) {
-        Toast.makeText(getContext(),"dsaad",Toast.LENGTH_SHORT).show();
+        PicsModel model = adsModelList.get(sliderLayout.getCurrentPosition());
+        Intent intent = new Intent(getActivity(),ViewPicsActivity.class);
+        intent.putExtra("json" ,model.getImgList().toString());
+        intent.putExtra("title",model.getTitle());
+        startActivity(intent);
     }
 }
 
@@ -268,18 +306,13 @@ class MyNewsListAdapter extends BaseAdapter implements DownLoadImageable{
 
 class AsynGetNewsData extends AsyncTask<String,Void,String>{
     private List<NewsModel> modelList ;
-    private List<AdsModel> adsModelList ;
     private News news;
     private int type;
 
-    public AsynGetNewsData(News news,int type){
+    public AsynGetNewsData(News news,int type) {
         this.news = news;
         this.type = type;
-        if (type == 0){
-            modelList = new ArrayList<NewsModel>();
-        }else{
-            adsModelList = new ArrayList<AdsModel>();
-        }
+        modelList = new ArrayList<NewsModel>();
     }
 
     @Override
@@ -312,11 +345,7 @@ class AsynGetNewsData extends AsyncTask<String,Void,String>{
         super.onPostExecute(s);
         if (s != null){
             parseJsonData(s);
-            if (type == 0){
-                news.setModelList(modelList,null,type);
-            }else{
-                news.setModelList(null,adsModelList,1);
-            }
+            news.setModelList(modelList,null,type);
             news.loadDataFinished(type);// 加载数据完成后 回调数据
         }else{
             Toast.makeText(news.getContext(),"加载错误!",Toast.LENGTH_SHORT).show();
@@ -325,32 +354,6 @@ class AsynGetNewsData extends AsyncTask<String,Void,String>{
 
     //解析json
     void parseJsonData(String json){
-        if (type == 1){ // 加载头条
-            try{
-                JSONObject root  = new JSONObject(json);
-                JSONArray rootJson = root.getJSONArray("T1348647909107");
-                JSONObject adsRoot = rootJson.getJSONObject(0);
-                JSONArray adsArray = adsRoot.getJSONArray("ads");
-
-                //获取滚动新闻
-                for (int i = 0; i < adsArray.length() ;i++){
-                    JSONObject obj = adsArray.getJSONObject(i);
-                    AdsModel model = new AdsModel();
-                    model.setImgSrc(obj.getString("imgsrc"));
-                    model.setTitle(obj.getString("title"));
-                    model.setUrl(obj.getString("url"));
-                    adsModelList.add(model);
-                }
-                root = null;
-                rootJson = null;
-                adsRoot = null;
-                adsArray =  null;
-                System.gc();
-            }catch (JSONException e){
-                Toast.makeText(news.getContext(),"解析数据出错!",Toast.LENGTH_SHORT).show();
-                System.err.println(e.getMessage());
-            }
-        }else{ // type == 0
             try{
                 JSONObject root = new JSONObject(json);
                 JSONArray newslist = root.getJSONArray("newslist");
@@ -373,6 +376,83 @@ class AsynGetNewsData extends AsyncTask<String,Void,String>{
                 Toast.makeText(news.getContext(),"解析数据出错!",Toast.LENGTH_SHORT).show();
                 System.err.println(e.getMessage());
             }
+    }
+}
+
+
+
+//异步下载请求
+class AsynDownLoadHeadPics extends AsyncTask<String,Void,String>{
+    private List<PicsModel> modelList = new ArrayList<PicsModel>();
+    private News news;
+    private int type;
+
+    public AsynDownLoadHeadPics(News news,int type){
+        this.news = news;
+        this.type = type;
+    }
+
+    @Override
+    protected String doInBackground(String... params) {
+        String requestUrl = params[0];
+        URL url = null;
+        StringBuilder content = new StringBuilder();
+        try {
+            url = new URL(requestUrl);
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream inputStream = connection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)) ;
+            String line = null;
+            while ((line = bufferedReader.readLine()) != null){
+                content.append(line);
+            }
+            inputStream.close();
+        }catch (MalformedURLException e){
+            System.err.print(e.getMessage());
+        }catch (IOException e){
+            System.err.print(e.getMessage());
         }
+
+        return content.toString();
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+
+        if (s != null){
+            parseJsonData(s);
+            news.setModelList(null,modelList,type);
+            news.loadDataFinished(type);// 加载数据完成后 回调数据
+        }else{
+            Toast.makeText(news.getContext(),"加载错误!",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void parseJsonData(String s){
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONObject root = jsonObject.getJSONObject("photo4_channel_list");
+            JSONObject dataObj = root.getJSONObject("data");
+            JSONArray list = dataObj.getJSONArray("list");
+            for(int i = 0; i < list.length() && i <= 5 ;i++){
+                PicsModel model = new PicsModel();
+                JSONObject obj = list.getJSONObject(i);
+                if(obj.getBoolean("is_ad") || obj.getBoolean("is_pos"))continue;
+                model.setTitle(obj.getString("title"));
+                model.setCommentCount(obj.getString("comment"));
+                model.setFavorCount(obj.getString("favor"));
+                model.setHeadImgUrl(obj.getString("coverimg"));
+                model.setShareUrl(obj.getString("shareUrl"));
+                model.setImgList(obj.getJSONArray("imglist"));
+                modelList.add(model);
+            }
+
+        }catch (JSONException e){
+            Toast.makeText(news.getContext(),"解析数据失败",Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

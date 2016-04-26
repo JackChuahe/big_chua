@@ -3,7 +3,44 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/pic_top_title_bar"
+        android:orientation="horizontal"
+        android:background="#4052b5"
+        android:layout_height="40dp">
+        <LinearLayout
+            android:id="@+id/view_news_back"
+            android:layout_width="45dp"
+            android:layout_gravity="center"
+            android:layout_height="40dp">
+            <ImageView
+
+                android:layout_marginLeft="8dp"
+                android:layout_width="20dp"
+                android:layout_gravity="center"
+                android:background="@drawable/epaysdk_icon_whitel_back"
+                android:layout_height="30dp" />
+        </LinearLayout>
+
+        <TextView
+
+            android:paddingRight="10dp"
+            android:id="@+id/item_news_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="热门视频"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:layout_gravity="center"
+            android:paddingLeft="15dp"
+            />
+    </LinearLayout>
     <WebView
+        android:layout_below="@+id/pic_top_title_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/news_webView"

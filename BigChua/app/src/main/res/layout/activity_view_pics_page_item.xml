@@ -7,31 +7,8 @@
     android:background="#131313"
     tools:context="com.example.jackcai.bigchua.pics.ViewPicsActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:id="@+id/pic_top_title_bar"
-        android:orientation="horizontal"
-        android:background="#4052b5"
-        android:gravity="center"
-        android:layout_height="40dp">
-        <ImageView
-            android:layout_width="30dp"
-            android:src="@drawable/biz_pc_achievement_newspaper"
-            android:layout_height="30dp" />
-        <TextView
-            android:id="@+id/item_pic_title_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="热门视频"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:textSize="19sp"
-            android:layout_gravity="center"
-            android:paddingLeft="10dp"
-            />
-    </LinearLayout>
+
 <ImageView
-    android:layout_below="@+id/pic_top_title_bar"
     android:id="@+id/pics_image_iv"
     android:layout_width="match_parent"
     android:layout_above="@+id/line"
@@ -53,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="7"
+        android:ellipsize="end"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="10dp"
