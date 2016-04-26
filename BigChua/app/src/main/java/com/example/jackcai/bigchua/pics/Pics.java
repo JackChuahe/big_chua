@@ -53,8 +53,14 @@ public class Pics extends Fragment implements AdapterView.OnItemClickListener {
     private ProgressBar pbLoadMore;
     private LinearLayout lyLoadMore;
     private ProgressBar progressBar;
-    private static String URL = "http://info.3g.qq.com/g/photo/photo3/api/api.jsp?action=index_entry_list%2Cphoto4_channel_list&_t=1450753533729&cl_channel=manual&cl_page=1&cl_size=10&cl_openAd=0";
-
+    private static String URL_F = "http://info.3g.qq.com/g/photo/photo3/api/api.jsp?action=index_entry_list%2Cphoto4_channel_list&_t=1450753533729&cl_channel=manual&cl_page=";
+    private static String URL_B= "&cl_size=";
+    private static String URL_L = "&cl_openAd=0";
+    private boolean isLoading = false;
+    private int currentPage = 1;
+    private int contentSize = 10;
+    private boolean isFirstLoad = true;
+    private static int MAX_PAGE = 10;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,11 +79,13 @@ public class Pics extends Fragment implements AdapterView.OnItemClickListener {
         return view;
     }
 
-    //
+    //从网络加载数据
     public void loadData(){
 
+        String url = URL_F + currentPage + URL_B + contentSize + URL_L;
         AsynDownLoadPics asynDownLoadPics = new AsynDownLoadPics(this);
-        asynDownLoadPics.execute(URL);
+        asynDownLoadPics.execute(url);
+        ++currentPage;
     }
 
     public void setModelList(List<PicsModel> list){
@@ -90,7 +98,15 @@ public class Pics extends Fragment implements AdapterView.OnItemClickListener {
     }
 
     public void loadDataFinished(){
-        progressBar.setVisibility(View.GONE);
+        if(isFirstLoad){
+            progressBar.setVisibility(View.GONE);
+            isFirstLoad = false;
+        }else {
+            lyLoadMore.setVisibility(View.VISIBLE);
+            pbLoadMore.setVisibility(View.GONE);
+        }
+
+        isLoading = false;//加载结束了
         if(myPicsAdatper != null){
             myPicsAdatper.notifyDataSetChanged();
             return;
@@ -98,11 +114,28 @@ public class Pics extends Fragment implements AdapterView.OnItemClickListener {
         myPicsAdatper = new MyPicsAdatper(modelList,getContext());
         listView.setAdapter(myPicsAdatper);
         listView.setOnItemClickListener(this);
+
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if(position == modelList.size() && !isLoading){
+            if (currentPage >= MAX_PAGE){
+                Toast.makeText(getContext(),"已经加载够多了!先认真看看吧！",Toast.LENGTH_SHORT).show();
+                return;
+            }
 
+            pbLoadMore.setVisibility(View.VISIBLE);
+            lyLoadMore.setVisibility(View.GONE);
+
+            lyLoadMore.setVisibility(View.GONE);
+            pbLoadMore.setVisibility(View.VISIBLE);
+
+            isLoading = true;
+            loadData();
+            return;
+        }else if(position == modelList.size() && isLoading)return;
     }
 
     @Override

@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BigChua.iml" filepath="$PROJECT_DIR$/BigChua.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PagerSlidingTabStrip/PagerSlidingTabStrip.iml" filepath="$PROJECT_DIR$/PagerSlidingTabStrip/PagerSlidingTabStrip.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PagerSlidingTabStrip/library/library.iml" filepath="$PROJECT_DIR$/PagerSlidingTabStrip/library/library.iml" />
     </modules>
   </component>
 </project>

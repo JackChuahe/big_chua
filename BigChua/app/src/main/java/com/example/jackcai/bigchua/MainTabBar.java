@@ -122,9 +122,15 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
     //逐个实现点击事件的操作
     //点击新闻的时候
     void clickNewsBtn(){
-        fragmentNews = new News();
+
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_content,fragmentNews);
+        hidenFragment(fragmentTransaction);
+        if (fragmentNews == null){
+            fragmentNews = new News();
+            fragmentTransaction.add(R.id.frame_content,fragmentNews);
+        }else{
+            fragmentTransaction.show(fragmentNews);
+        }
         fragmentTransaction.commit();
 
         newsIv.setSelected(true);
@@ -144,10 +150,15 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
     //点击图片新闻的时候
     void clickPicshBtn(){
 
-        fragmentPics = new Pics();
-
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_content,fragmentPics);
+        hidenFragment(fragmentTransaction);
+        if (fragmentPics == null){
+            fragmentPics = new Pics();
+            fragmentTransaction.add(R.id.frame_content,fragmentPics);
+        }else{
+            fragmentTransaction.show(fragmentPics);
+        }
+
         fragmentTransaction.commit();
 
         newsIv.setSelected(false);
@@ -164,10 +175,15 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
     //点击视频的时候
     void clickVideosBtn(){
 
-        fragmentVideos = new Videos();
-
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_content,fragmentVideos);
+        hidenFragment(fragmentTransaction);
+        if (fragmentVideos == null){
+            fragmentVideos = new Videos();
+            fragmentTransaction.add(R.id.frame_content,fragmentVideos);
+        }else{
+            fragmentTransaction.show(fragmentVideos);
+        }
+
         fragmentTransaction.commit();
 
         newsIv.setSelected(false);
@@ -184,11 +200,15 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
     //点击翻译的时候
     void clickTranBtn(){
 
-
-        fragmentTran = new Translate();
-
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_content,fragmentTran);
+        hidenFragment(fragmentTransaction);
+        if (fragmentTran == null){
+            fragmentTran = new Translate();
+            fragmentTransaction.add(R.id.frame_content,fragmentTran);
+        }else{
+            fragmentTransaction.show(fragmentTran);
+        }
+
         fragmentTransaction.commit();
 
         newsIv.setSelected(false);
@@ -205,11 +225,15 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
 
     //点击我的时候
     void clickMeBtn(){
-        fragmentMe = new Me();
-
-
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_content,fragmentMe);
+        hidenFragment(fragmentTransaction);
+        if (fragmentMe == null){
+            fragmentMe = new Me();
+            fragmentTransaction.add(R.id.frame_content,fragmentMe);
+        }else{
+            fragmentTransaction.show(fragmentMe);
+        }
+
         fragmentTransaction.commit();
 
         newsIv.setSelected(false);
@@ -268,6 +292,33 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
                 fragmentTran.windowSoftKeyBoardChanged(isSoftKeyBoardPoped);
             case 4:
                 break;
+        }
+    }
+
+
+    /**
+     * 隐藏fragment
+     * @param transaction
+     */
+    private void hidenFragment(FragmentTransaction transaction){
+        if (fragmentNews != null){
+            transaction.hide(fragmentNews);
+        }
+
+        if (fragmentPics != null){
+            transaction.hide(fragmentPics);
+        }
+
+        if (fragmentVideos != null){
+            transaction.hide(fragmentVideos);
+        }
+
+        if (fragmentTran != null){
+            transaction.hide(fragmentTran);
+        }
+
+        if (fragmentMe != null){
+            transaction.hide(fragmentMe);
         }
     }
 

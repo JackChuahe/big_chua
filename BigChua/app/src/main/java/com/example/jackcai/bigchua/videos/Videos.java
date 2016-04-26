@@ -60,7 +60,7 @@ public class Videos extends Fragment implements AdapterView.OnItemClickListener 
     private LinearLayout lyLoadMore;
     private boolean isLoading = false;
     private boolean isFirstLoading = true;
-    private static  final int  MAX_NUM = 40;
+    private static  final int  MAX_NUM = 80;
 
 
     @Nullable
@@ -126,6 +126,7 @@ public class Videos extends Fragment implements AdapterView.OnItemClickListener 
             lyLoadMore.setVisibility(View.VISIBLE);
 
         }
+        isLoading = false;     //加载结束
         //已经有适配器了
         if(myVideosAdapter != null){
             myVideosAdapter.notifyDataSetChanged();
@@ -135,7 +136,7 @@ public class Videos extends Fragment implements AdapterView.OnItemClickListener 
         listView.setAdapter(myVideosAdapter);
         listView.setOnItemClickListener(this);
 
-        isLoading = false;     //加载结束
+
     }
 
     /**
@@ -151,7 +152,7 @@ public class Videos extends Fragment implements AdapterView.OnItemClickListener 
 
             pbLoadMore.setVisibility(View.VISIBLE);
             lyLoadMore.setVisibility(View.GONE);
-
+            isLoading = true;
             loadData();
             return;
         }else if(position == modelList.size() && isLoading)return;
