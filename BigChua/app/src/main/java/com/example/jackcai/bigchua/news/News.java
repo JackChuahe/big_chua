@@ -127,15 +127,20 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
 
 
     public void loadHeader(){
+        sliderLayout.setClickable(true);
         sliderLayout.setCustomAnimation(new DescriptionAnimation());
         sliderLayout.setPresetTransformer(SliderLayout.Transformer.Default);
         sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
-        for (AdsModel model : adsModelList){
+        for (AdsModel model : adsModelList) {
             TextSliderView textSliderView = new TextSliderView(this.getActivity());
             textSliderView.description(model.getTitle());
             textSliderView.image(model.getImgSrc());
+            textSliderView.setOnSliderClickListener(this);
+            textSliderView.setScaleType(BaseSliderView.ScaleType.Fit);
             sliderLayout.addSlider(textSliderView);
         }
+
+        sliderLayout.stopAutoCycle();
     }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

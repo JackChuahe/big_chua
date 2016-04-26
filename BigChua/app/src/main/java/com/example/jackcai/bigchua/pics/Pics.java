@@ -136,6 +136,14 @@ public class Pics extends Fragment implements AdapterView.OnItemClickListener {
             loadData();
             return;
         }else if(position == modelList.size() && isLoading)return;
+        else {
+            PicsModel model = modelList.get(position);
+            Intent intent = new Intent(getActivity(),ViewPicsActivity.class);
+            intent.putExtra("json" ,model.getImgList().toString());
+            intent.putExtra("title",model.getTitle());
+            startActivity(intent);
+           ;
+        }
     }
 
     @Override

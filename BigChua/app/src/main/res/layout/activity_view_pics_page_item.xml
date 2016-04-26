@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#131313"
+    tools:context="com.example.jackcai.bigchua.pics.ViewPicsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/pic_top_title_bar"
+        android:orientation="horizontal"
+        android:background="#4052b5"
+        android:gravity="center"
+        android:layout_height="40dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:src="@drawable/biz_pc_achievement_newspaper"
+            android:layout_height="30dp" />
+        <TextView
+            android:id="@+id/item_pic_title_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="热门视频"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:textSize="19sp"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            />
+    </LinearLayout>
+<ImageView
+    android:layout_below="@+id/pic_top_title_bar"
+    android:id="@+id/pics_image_iv"
+    android:layout_width="match_parent"
+    android:layout_above="@+id/line"
+    android:layout_marginBottom="5dp"
+    android:src="@drawable/biz_pic_wait_down_img"
+    android:layout_height="match_parent" />
+    <LinearLayout
+        android:id="@+id/line"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:background="#5e5e5e"
+        android:layout_height="1dp"
+        android:layout_above="@+id/pics_detail_tv">
+    </LinearLayout>
+    <TextView
+        android:id="@+id/pics_detail_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="7"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="#ffffff"
+        android:lineSpacingMultiplier="1.1"
+        android:text="2016年4月21日"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"/>
+</RelativeLayout>
