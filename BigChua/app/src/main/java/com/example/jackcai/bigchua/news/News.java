@@ -9,7 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -94,6 +96,9 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
 
         listView.addFooterView(footView);
         listView.addHeaderView(relativeLayout);
+
+        //注册弹出菜单
+        registerForContextMenu(listView);
         loadData();
         return view;
     }
@@ -182,8 +187,8 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
             return;
         }
         Intent intent = new Intent(getContext(),WebBrowser.class);
-        intent.putExtra("title",newsModelList.get(position).getTitle());
-        intent.putExtra("url",newsModelList.get(position).getContentUrl());
+        intent.putExtra("title",newsModelList.get(position-1).getTitle());
+        intent.putExtra("url",newsModelList.get(position-1).getContentUrl());
         startActivity(intent);
     }
 
@@ -198,6 +203,30 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
         intent.putExtra("json" ,model.getImgList().toString());
         intent.putExtra("title",model.getTitle());
         startActivity(intent);
+    }
+
+    /**
+     * 注册分享事件
+     */
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0,0,0,"分享新闻");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();  //获得AdapterContextMenuInfo,以此来获得选择的listview项目
+        if (menuInfo.position > newsModelList.size() || menuInfo.position < 1)return false;
+        NewsModel model = newsModelList.get(menuInfo.position);
+
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.setType("text/*");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, model.getContentUrl());
+        startActivity(sendIntent);
+        return super.onContextItemSelected(item);
     }
 }
 

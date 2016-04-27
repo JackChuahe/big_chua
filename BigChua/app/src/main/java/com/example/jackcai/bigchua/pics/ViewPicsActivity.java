@@ -140,33 +140,3 @@ public class ViewPicsActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-class MyPageAdapter extends PagerAdapter{
-    // 需要显示的视图
-    private List<View> views ;
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-
-        container.addView(views.get(position));
-        return views.get(position);
-    }
-
-    public  MyPageAdapter(List<View> views){
-        this.views = views;
-    }
-
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView(views.get(position));
-    }
-
-    @Override
-    public int getCount() {
-        return views.size();
-    }
-
-    @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == object;
-    }
-}

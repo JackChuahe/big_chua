@@ -148,7 +148,6 @@ public class Pics extends Fragment implements AdapterView.OnItemClickListener {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle("分享&收藏").setHeaderIcon(R.drawable.sns_weixin_timeline_icon);
         menu.add(0,0,0,"分享图片新闻");
     }
 

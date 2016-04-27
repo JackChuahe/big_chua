@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/entry_root"
+    android:visibility="gone"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".guidepage.ActivityEntryPage">
+<LinearLayout
+    android:id="@+id/center_layout"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:elevation="7dp"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:layout_marginTop="50dp"
+    >
+    <LinearLayout
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:elevation="7dp"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:layout_height="200dp"
+        android:src="@drawable/boot_image"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:textSize="17sp"
+        android:lineSpacingMultiplier="1.1"
+        android:text="We have to be greater than what we suffer."
+        android:textColor="#2e2e2e"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+
+        android:textColor="#afafaf"
+        android:layout_width="match_parent"
+        android:textSize="15sp"
+        android:text="我们必须比我们遭遇的苦难更强大"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:layout_height="100dp">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/biz_pc_achievement_newspaper"
+            android:layout_height="60dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="25sp"
+            android:paddingLeft="15dp"
+            android:layout_gravity="center"
+            android:text="BigChuaNews"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

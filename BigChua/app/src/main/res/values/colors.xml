@@ -6,4 +6,6 @@
     <color name="skin_tabbar_bg">#FCF8FC</color>
     <color name="tab_bar_red">#FF0000</color>
     <color name="tab_bar_black">#504f4f</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

@@ -204,7 +204,7 @@ public class Videos extends Fragment implements AdapterView.OnItemClickListener 
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.setType("text/*");
-        sendIntent.putExtra("分享自BigChua客户端\n"+Intent.EXTRA_TEXT, model.getVideoUrl() + "\n"+model.getVideoTitle());
+        sendIntent.putExtra(Intent.EXTRA_TEXT, model.getVideoUrl());
         startActivity(sendIntent);
         return super.onContextItemSelected(item);
     }
