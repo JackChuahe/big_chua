@@ -63,7 +63,7 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
     private List<PicsModel> adsModelList;
     private MyNewsListAdapter adapter ;
     private ProgressBar loadPb;
-    private static String URL_HEAD = "http://info.3g.qq.com/g/photo/photo3/api/api.jsp?action=index_entry_list%2Cphoto4_channel_list&_t=1450753533729&cl_channel=manual&cl_page=1&cl_size=10&cl_openAd=1";
+    private static String URL_HEAD = "http://yuetu.3g.qq.com/photo/s?aid=action_api&module=photo&action=photo4_channel_list&_t=1461895675346&cl_channel=manual&cl_page=1&cl_size=10&cl_openAd=0";
     private static String URL_NEWS_LIST = "http://r.inews.qq.com/getQQNewsUnreadList?uid=9bbb976dec28f6ae&omgbizid=bb4c10d2d92de041fc6a894637deac8ac5700050210b16&Cookie=%20lskey%3D%3B%20luin%3D%3B%20skey%3D%3B%20uin%3D%3B%20logintype%3D0%20&qn-rid=391487196&store=5&hw=TiantianVM_TianTian&devid=950790062947205&qn-sig=46f4c335f6311193104bf7d6218161b4&user_chlid=news_news_finance%2Cnews_news_ent%2Cnews_news_sports%2Cnews_news_tech%2Cnews_news_ssh%2Cnews_news_mil%2Cnews_news_lad&screen_width=600&mac=67%253Afd%253A0e%253A46%253A86%253A40&last_time=1450752215&chlid=news_news_top&appver=18_android_4.8.7&qqnetwork=wifi&forward=0&page=";
     private static String URL_NEWS_LIST_B = "&last_id=NEW2015122201243000&mid=fb7dd60a37d004a54e059fd9613257b8f2457515&imsi=310260835531535&omgid=13b925aa2f9a5446a1fabb239e0df59cb60a0010210b16&apptype=android&screen_height=1024";
     private SliderLayout sliderLayout;
@@ -469,12 +469,12 @@ class AsynDownLoadHeadPics extends AsyncTask<String,Void,String>{
             for(int i = 0; i < list.length() && i <= 5 ;i++){
                 PicsModel model = new PicsModel();
                 JSONObject obj = list.getJSONObject(i);
-                if(obj.getBoolean("is_ad") || obj.getBoolean("is_pos"))continue;
+                if(obj.getInt("dataType") != 1||obj.getBoolean("is_ad") || obj.getBoolean("is_pos"))continue;
                 model.setTitle(obj.getString("title"));
-                model.setCommentCount(obj.getString("comment"));
+                model.setCommentCount(obj.getString("coralComment"));
                 model.setFavorCount(obj.getString("favor"));
                 model.setHeadImgUrl(obj.getString("coverimg"));
-                model.setShareUrl(obj.getString("shareUrl"));
+                model.setShareUrl(obj.getString("imageTagCn"));
                 model.setImgList(obj.getJSONArray("imglist"));
                 modelList.add(model);
             }

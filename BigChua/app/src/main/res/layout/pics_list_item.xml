@@ -53,12 +53,12 @@
                 android:gravity="left"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:id="@+id/video_type_logo"
+                    android:id="@+id/pics_type_logo"
                     android:layout_width="28dp"
-                    android:src="@drawable/biz_read_recommend_hot"
+                    android:src="@drawable/pics_travel"
                     android:layout_height="28dp" />
                 <TextView
-                    android:id="@+id/video_type"
+                    android:id="@+id/pic_type"
                     android:background="@drawable/corners_bg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

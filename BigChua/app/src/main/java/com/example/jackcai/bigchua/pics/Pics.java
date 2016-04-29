@@ -32,6 +32,7 @@ import com.example.jackcai.bigchua.videos.VideoModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,7 +54,7 @@ public class Pics extends Fragment implements AdapterView.OnItemClickListener {
     private ProgressBar pbLoadMore;
     private LinearLayout lyLoadMore;
     private ProgressBar progressBar;
-    private static String URL_F = "http://info.3g.qq.com/g/photo/photo3/api/api.jsp?action=index_entry_list%2Cphoto4_channel_list&_t=1450753533729&cl_channel=manual&cl_page=";
+    private static String URL_F = "http://yuetu.3g.qq.com/photo/s?aid=action_api&module=photo&action=photo4_channel_list&_t=1461895675346&cl_channel=manual&cl_page=";;
     private static String URL_B= "&cl_size=";
     private static String URL_L = "&cl_openAd=0";
     private boolean isLoading = false;
@@ -182,12 +183,33 @@ class MyPicsAdatper extends BaseAdapter implements DownLoadImageable {
     private LayoutInflater inflater ;
     private static  Bitmap defaultImageBmp ;
 
+    private static Bitmap pics_bagua;
+    private static Bitmap pics_story;
+    private static Bitmap pics_monster;
+    private static Bitmap pics_school_flowers;
+    private static Bitmap pics_girls;
+    private static Bitmap pics_sports;
+    private static Bitmap pics_fashion;
+    private static Bitmap pics_hot;
+
+
+
     public MyPicsAdatper(List<PicsModel> list, Context context ){
         this.modelList = list;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
         if(defaultImageBmp == null){
             defaultImageBmp = BitmapFactory.decodeResource(context.getResources(),R.drawable.biz_pic_wait_down_img);
+
+            pics_bagua = BitmapFactory.decodeResource(context.getResources(),R.drawable.pics_bagua);
+            pics_story = BitmapFactory.decodeResource(context.getResources(),R.drawable.pics_story);
+            pics_monster = BitmapFactory.decodeResource(context.getResources(),R.drawable.pics_monster);
+            pics_school_flowers = BitmapFactory.decodeResource(context.getResources(),R.drawable.pics_school_flowers);
+            pics_girls = BitmapFactory.decodeResource(context.getResources(),R.drawable.pics_girls);
+            pics_sports = BitmapFactory.decodeResource(context.getResources(),R.drawable.pics_sports);
+            pics_fashion = BitmapFactory.decodeResource(context.getResources(),R.drawable.pics_fashion);
+            pics_hot = BitmapFactory.decodeResource(context.getResources(),R.drawable.pics_hot);
+
         }
     }
 
@@ -216,6 +238,9 @@ class MyPicsAdatper extends BaseAdapter implements DownLoadImageable {
             holder.headImgIv = (ImageView)convertView.findViewById(R.id.pics_pic_img);
             holder.commetCoutTv = (TextView)convertView.findViewById(R.id.comment_count);
             holder.favorCountTv = (TextView)convertView.findViewById(R.id.favor_count);
+            holder.picType = (TextView)convertView.findViewById(R.id.pic_type);
+            holder.typeImg = (ImageView)convertView.findViewById(R.id.pics_type_logo);
+
             convertView.setTag(holder);
 
         }else{
@@ -226,6 +251,38 @@ class MyPicsAdatper extends BaseAdapter implements DownLoadImageable {
         holder.titleTv.setText(model.getTitle());
         holder.favorCountTv.setText(model.getFavorCount());
         holder.commetCoutTv.setText(model.getCommentCount());
+        holder.picType.setText(model.getShareUrl());
+
+        switch (model.getShareUrl().trim()){
+            case "热门":
+                holder.typeImg.setImageBitmap(pics_hot);
+                break;
+            case "作妖":
+                holder.typeImg.setImageBitmap(pics_monster);
+                break;
+            case "八卦":
+                holder.typeImg.setImageBitmap(pics_bagua);
+                break;
+            case "故事":
+                holder.typeImg.setImageBitmap(pics_story);
+                break;
+            case "校花":
+                holder.typeImg.setImageBitmap(pics_school_flowers);
+                break;
+            case "嫩模":
+                holder.typeImg.setImageBitmap(pics_girls);
+                break;
+            case "美女":
+                holder.typeImg.setImageBitmap(pics_girls);
+                break;
+            case "体育":
+                holder.typeImg.setImageBitmap(pics_sports);
+                break;
+            case "时尚":
+                holder.typeImg.setImageBitmap(pics_fashion);
+                break;
+        }
+
         if(bitmapMapImgCache.containsKey(model.getHeadImgUrl())){
             holder.headImgIv.setImageBitmap(bitmapMapImgCache.get(model.getHeadImgUrl()));
         }else{
@@ -250,6 +307,8 @@ class MyPicsAdatper extends BaseAdapter implements DownLoadImageable {
         ImageView headImgIv;
         TextView commetCoutTv;
         TextView favorCountTv;
+        TextView picType;
+        ImageView typeImg;
     }
 }
 
@@ -310,12 +369,12 @@ class AsynDownLoadPics extends AsyncTask<String,Void,String>{
             for(int i = 0; i < list.length() ;i++){
                 PicsModel model = new PicsModel();
                 JSONObject obj = list.getJSONObject(i);
-                if(obj.getBoolean("is_ad") || obj.getBoolean("is_pos"))continue;
+                if(obj.getInt("dataType") != 1 || obj.getBoolean("is_ad") || obj.getBoolean("is_pos"))continue;
                 model.setTitle(obj.getString("title"));
-                model.setCommentCount(obj.getString("comment"));
+                model.setCommentCount(obj.getString("coralComment"));
                 model.setFavorCount(obj.getString("favor"));
                 model.setHeadImgUrl(obj.getString("coverimg"));
-                model.setShareUrl(obj.getString("shareUrl"));
+                model.setShareUrl(obj.getString("imageTagCn"));
                 model.setImgList(obj.getJSONArray("imglist"));
                 modelList.add(model);
             }
