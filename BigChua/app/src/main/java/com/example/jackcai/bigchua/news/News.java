@@ -1,14 +1,19 @@
 package com.example.jackcai.bigchua.news;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -155,6 +160,8 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
             adapter = new MyNewsListAdapter(newsModelList,getContext());
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(this);
+            if (newsModelList.size() == 0)return;
+            getNotification(newsModelList.get(1));
         }else {//头部加载完成
             loadHeader();
         }
@@ -228,6 +235,35 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
         startActivity(sendIntent);
         return super.onContextItemSelected(item);
     }
+
+    /**
+     * 推送通知 最新新闻
+     */
+    public void getNotification(NewsModel model){
+
+        final NotificationManager nm = (NotificationManager)getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification.Builder builder = new Notification.Builder(getActivity());
+
+        //参数
+        Bitmap largeIcon = ((BitmapDrawable) getResources().getDrawable(R.drawable.pics_travel)).getBitmap();
+        String info = model.getDesc();
+
+        //action
+        Intent intent = new Intent(getContext(),WebBrowser.class);
+        intent.putExtra("title",model.getTitle());
+        intent.putExtra("url",model.getContentUrl());
+
+        builder.setLargeIcon(largeIcon)
+                .setSmallIcon(R.drawable.pics_travel)
+                .setContentTitle(model.getTitle())
+                .setContentText(info)
+                .setTicker(model.getTitle())
+                .setDefaults(Notification.DEFAULT_SOUND)
+                .setContentIntent(PendingIntent.getActivity(getActivity(), 0, intent, 0));
+        final Notification n = builder.build();
+        //Toast.makeText(getActivity(),"notification",Toast.LENGTH_SHORT).show();
+        nm.notify(model.getTitle().hashCode(),n);
+    }
 }
 
 
@@ -237,7 +273,7 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
 class MyNewsListAdapter extends BaseAdapter implements DownLoadImageable{
     private List<NewsModel> modelList = new ArrayList<NewsModel>();
     private LayoutInflater inflater;
-    private Map<String,Bitmap> bitmapImgCache = new HashMap<String ,Bitmap>();
+    public Map<String,Bitmap> bitmapImgCache = new HashMap<String ,Bitmap>();
     private Context context;
     private static  Bitmap defaultBmpLoadWait ;
     private static Bitmap defaultType;
@@ -406,6 +442,8 @@ class AsynGetNewsData extends AsyncTask<String,Void,String>{
                 System.err.println(e.getMessage());
             }
     }
+
+
 }
 
 

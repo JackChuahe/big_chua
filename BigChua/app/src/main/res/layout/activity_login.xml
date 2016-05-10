@@ -36,6 +36,7 @@
                     android:layout_marginBottom="5dp"
                     android:src="@drawable/night_biz_pc_account_username_icon"/>
                 <EditText
+                    android:id="@+id/login_edt_username"
                     android:layout_width="match_parent"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -76,6 +77,7 @@
                     android:layout_marginBottom="5dp"
                     android:src="@drawable/night_biz_pc_account_pwd_icon"/>
                 <EditText
+                    android:id="@+id/login_edt_pwd"
                     android:layout_width="match_parent"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -115,7 +117,7 @@
             android:text="登   录"
             android:textColor="#FFFFFF"
             android:elevation="5dp"
-
+            android:id="@+id/login_btn_login"
             android:background="@drawable/button_border_radius"
             android:layout_height="wrap_content" />
         <LinearLayout

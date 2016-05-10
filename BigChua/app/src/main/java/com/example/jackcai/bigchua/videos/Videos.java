@@ -60,7 +60,7 @@ public class Videos extends Fragment implements AdapterView.OnItemClickListener 
     private LinearLayout lyLoadMore;
     private boolean isLoading = false;
     private boolean isFirstLoading = true;
-    private static  final int  MAX_NUM = 80;
+    private static  final int  MAX_NUM = 120;
 
 
     @Nullable

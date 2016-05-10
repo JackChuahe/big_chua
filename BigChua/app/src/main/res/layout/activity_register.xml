@@ -35,13 +35,14 @@
                     android:layout_marginBottom="5dp"
                     android:src="@drawable/night_biz_pc_account_username_icon"/>
                 <EditText
+                    android:id="@+id/register_edt_useremail"
                     android:layout_width="match_parent"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="15dp"
                     android:paddingBottom="10dp"
                     android:layout_marginLeft="5dp"
-                    android:hint="邮箱/手机号"
+                    android:hint="邮箱"
                     android:textColorHint="#b3b3b0"
                     android:textSize="15sp"
                     android:lines="1"
@@ -74,6 +75,7 @@
                     android:layout_marginBottom="5dp"
                     android:src="@drawable/night_biz_pc_account_pwd_icon"/>
                 <EditText
+                    android:id="@+id/register_edt_pwd1"
                     android:layout_width="match_parent"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -113,6 +115,7 @@
                     android:layout_marginBottom="5dp"
                     android:src="@drawable/night_biz_pc_account_pwd_icon"/>
                 <EditText
+                    android:id="@+id/register_edt_pwd2"
                     android:layout_width="match_parent"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -154,6 +157,7 @@
                     android:layout_marginBottom="5dp"
                     android:src="@drawable/biz_pc_main_promo"/>
                 <EditText
+                    android:id="@+id/register_edt_username"
                     android:layout_width="match_parent"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -166,7 +170,7 @@
                     android:textColorHint="#b3b3b0"
                     android:textSize="15sp"
                     android:background="@null"
-                    android:inputType="textPassword"
+                    android:inputType="textAutoComplete"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -194,6 +198,7 @@
                     android:layout_marginBottom="5dp"
                     android:src="@drawable/biz_pc_main_night"/>
                 <EditText
+                    android:id="@+id/register_edt_vercode"
                     android:layout_width="match_parent"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -206,10 +211,11 @@
                     android:textColorHint="#b3b3b0"
                     android:textSize="15sp"
                     android:background="@null"
-                    android:inputType="textPassword"
+                    android:inputType="textAutoComplete"
                     android:layout_weight="1"
                     android:layout_height="wrap_content" />
                 <Button
+                    android:id="@+id/register_btn_getVecode"
                     android:layout_width="wrap_content"
                     android:text="点击获取验证码"
                     android:textColor="#FFFFFF"
@@ -221,9 +227,10 @@
         </RelativeLayout>
 
         <Button
+            android:id="@+id/register_btn_register"
             android:layout_width="match_parent"
             android:layout_marginTop="15dp"
-            android:text="登   录"
+            android:text="注   册"
             android:textColor="#FFFFFF"
             android:elevation="5dp"
 

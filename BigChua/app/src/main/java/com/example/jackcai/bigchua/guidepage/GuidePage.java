@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.jackcai.bigchua.MainTabBar;
 import com.example.jackcai.bigchua.R;
+import com.example.jackcai.bigchua.UserVerify.LoginActivity;
 import com.example.jackcai.bigchua.pics.MyPageAdapter;
 
 import java.util.ArrayList;
@@ -34,21 +35,24 @@ public class GuidePage extends AppCompatActivity implements ViewPager.OnPageChan
     private List<View> views = new ArrayList<View>();
     private ImageView btnStart;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.guide_page);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         btnStart = (ImageView) findViewById(R.id.btn_start);
         btnStart.setOnClickListener(this);
         initViewPager();
     }
 
     public void initViewPager(){
-        Bitmap bitmapA  = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.drawable.ga);
-        Bitmap bitmapB  = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.drawable.gb);
-        Bitmap bitmapC = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.drawable.gc);
+        Bitmap bitmapA  = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.a);
+        Bitmap bitmapB  = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.b);
+        Bitmap bitmapC = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.c);
         bitmapList.add(bitmapA);
         bitmapList.add(bitmapB);
         bitmapList.add(bitmapC);
@@ -95,8 +99,19 @@ public class GuidePage extends AppCompatActivity implements ViewPager.OnPageChan
         editor.putBoolean("isEntry",true);
         editor.commit();
 
-        Intent intent = new Intent(this, MainTabBar.class);
-        startActivity(intent);
+
+        SharedPreferences preferences = getSharedPreferences("remeber_user",MODE_PRIVATE);
+        boolean isRemeber = preferences.getBoolean("isRemeber",false);
+        if (isRemeber){
+            Intent intent = new Intent(this, MainTabBar.class);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+
+//        Intent intent = new Intent(this, MainTabBar.class);
+//        startActivity(intent);
         finish();
     }
 }

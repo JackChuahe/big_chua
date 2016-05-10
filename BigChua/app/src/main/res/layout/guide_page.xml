@@ -14,6 +14,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="60dp"
-        android:background="@drawable/start_btn_bg"
+        android:background="@mipmap/btn_start"
         android:layout_height="50dp" />
 </RelativeLayout>

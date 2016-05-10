@@ -1,9 +1,11 @@
 package com.example.jackcai.bigchua;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -43,6 +45,7 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
 
     // 定义图片组件对象
     private ImageView newsIv, meIv, picsIv, videosIv,tranIv;
+    private TextView tvNews,tvPics,tvVideo,tvTran,tvMe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +70,11 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
         videosIv = (ImageView)findViewById(R.id.image_video);
         tranIv = (ImageView)findViewById(R.id.image_translate);
 
+        tvMe = (TextView)findViewById(R.id.tv_me);
+        tvNews = (TextView)findViewById(R.id.tv_news);
+        tvVideo = (TextView)findViewById(R.id.tv_video);
+        tvTran = (TextView)findViewById(R.id.tv_translate);
+        tvPics = (TextView)findViewById(R.id.tv_pics);
 
 
         // 为监听软键盘弹起事件
@@ -141,6 +149,13 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
 
 
 
+        tvNews.setTextColor(getResources().getColor(R.color.bottomtextselected));
+        tvPics.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvVideo.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvTran.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvMe.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+
+
         //设置当前fragment为第几页
         currentFragment = 0;
 
@@ -167,6 +182,11 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
         tranIv.setSelected(false);
         meIv.setSelected(false);
 
+        tvNews.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvPics.setTextColor(getResources().getColor(R.color.bottomtextselected));
+        tvVideo.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvTran.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvMe.setTextColor(getResources().getColor(R.color.bottomtextcolor));
 
         //设置当前fragment为第几页
         currentFragment = 1;
@@ -192,6 +212,11 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
         tranIv.setSelected(false);
         meIv.setSelected(false);
 
+        tvNews.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvPics.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvVideo.setTextColor(getResources().getColor(R.color.bottomtextselected));
+        tvTran.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvMe.setTextColor(getResources().getColor(R.color.bottomtextcolor));
 
         //设置当前fragment为第几页
         currentFragment = 2;
@@ -217,6 +242,11 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
         tranIv.setSelected(true);
         meIv.setSelected(false);
 
+        tvNews.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvPics.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvVideo.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvTran.setTextColor(getResources().getColor(R.color.bottomtextselected));
+        tvMe.setTextColor(getResources().getColor(R.color.bottomtextcolor));
 
 
         //设置当前fragment为第几页
@@ -242,7 +272,11 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
         tranIv.setSelected(false);
         meIv.setSelected(true);
 
-
+        tvNews.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvPics.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvVideo.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvTran.setTextColor(getResources().getColor(R.color.bottomtextcolor));
+        tvMe.setTextColor(getResources().getColor(R.color.bottomtextselected));
 
         //设置当前fragment为第几页
         currentFragment = 4;
@@ -252,22 +286,36 @@ public class MainTabBar extends FragmentActivity implements View.OnClickListener
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (currentFragment){
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
             case 3:
                 if(!fragmentTran.keyDown(keyCode,event)){
                     return  false;
                 }else{
                     return super.onKeyDown(keyCode,event);
                 }
-            case 4:
-                break;
+                default:
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage("退出?放弃大波美女新闻?!");
+                    builder.setCancelable(true);
+                    DialogInterface.OnClickListener listener = new  DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case -2:
+                                    MainTabBar.this.finish();
+                                    break;
+                                case -1:
+                                    break;
+                            }
+
+                        }
+                    };
+
+                    builder.setPositiveButton("取消",listener);
+                    builder.setNegativeButton("确定",listener);
+                    builder.show();
+                    break;
         }
-        return super.onKeyDown(keyCode, event);
+        return false;
     }
 
     @Override

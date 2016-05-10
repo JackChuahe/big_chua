@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.example.jackcai.bigchua.MainTabBar;
 import com.example.jackcai.bigchua.R;
+import com.example.jackcai.bigchua.UserVerify.LoginActivity;
 
 public class ActivityEntryPage extends AppCompatActivity {
 
@@ -26,6 +27,7 @@ public class ActivityEntryPage extends AppCompatActivity {
 
         relativeLayout = (RelativeLayout)findViewById(R.id.entry_root) ;
         relativeLayout.setVisibility(View.VISIBLE);
+
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
         alphaAnimation.setDuration(1500);
         relativeLayout.startAnimation(alphaAnimation);
@@ -46,10 +48,24 @@ public class ActivityEntryPage extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("first_use",MODE_PRIVATE);
         boolean isEntry = sharedPreferences.getBoolean("isEntry",false);
-        if (isEntry){
-            Intent intent = new Intent(this, MainTabBar.class);
-            startActivity(intent);
 
+
+        if (isEntry){
+            SharedPreferences preferences = getSharedPreferences("remeber_user",MODE_PRIVATE);
+            boolean isRemeber = preferences.getBoolean("isRemeber",false);
+            if (isRemeber){
+                String useremail = preferences.getString("useremail","请登录");
+                String username = preferences.getString("username","");
+                String pwd = preferences.getString("pwd","");
+                Intent intent = new Intent(this, MainTabBar.class);
+                intent.putExtra("useremail",useremail);
+                intent.putExtra("username",username);
+                intent.putExtra("pwd",pwd);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+            }
         }else{
             Intent intent = new Intent(this,GuidePage.class);
             startActivity(intent);

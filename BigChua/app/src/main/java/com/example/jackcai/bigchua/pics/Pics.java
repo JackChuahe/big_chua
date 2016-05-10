@@ -61,7 +61,7 @@ public class Pics extends Fragment implements AdapterView.OnItemClickListener {
     private int currentPage = 1;
     private int contentSize = 10;
     private boolean isFirstLoad = true;
-    private static int MAX_PAGE = 10;
+    private static int MAX_PAGE = 20;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
