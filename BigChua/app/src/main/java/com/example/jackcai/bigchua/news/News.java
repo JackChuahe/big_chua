@@ -37,6 +37,7 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.example.jackcai.bigchua.R;
 import com.example.jackcai.bigchua.UserVerify.LoginActivity;
+import com.example.jackcai.bigchua.Weather.WeatherMainActivity;
 import com.example.jackcai.bigchua.pics.Pics;
 import com.example.jackcai.bigchua.pics.PicsModel;
 import com.example.jackcai.bigchua.pics.ViewPicsActivity;
@@ -61,7 +62,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class News extends Fragment implements AdapterView.OnItemClickListener , BaseSliderView.OnSliderClickListener{
+public class News extends Fragment implements AdapterView.OnItemClickListener , BaseSliderView.OnSliderClickListener,View.OnClickListener{
 
     private ListView listView;
     private List<NewsModel> newsModelList;
@@ -79,6 +80,7 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
 
     private ProgressBar pbLoadMore;
     private LinearLayout lyLoadMore;
+    private ImageView ivToWeather;
 
     @Nullable
     @Override
@@ -87,9 +89,9 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
         listView = (ListView)view.findViewById(R.id.news_list_view);
         loadPb = (ProgressBar)view.findViewById(R.id.news_list_pb);
         loadPb.setVisibility(View.VISIBLE);
+        ivToWeather = (ImageView)view.findViewById(R.id.iv_to_weather);
 
-
-        LayoutInflater headerInflater= LayoutInflater.from(getContext());
+                LayoutInflater headerInflater= LayoutInflater.from(getContext());
         View headerView = headerInflater.inflate(R.layout.news_img_slider,null);
         relativeLayout = (RelativeLayout) headerView.findViewById(R.id.header_frame);
         sliderLayout = (SliderLayout) headerView.findViewById(R.id.news_imgs_slider);
@@ -99,6 +101,8 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
         pbLoadMore = (ProgressBar) footView.findViewById(R.id.list_item_load_more_progressbar);
         lyLoadMore = (LinearLayout)footView.findViewById(R.id.list_item_load_more_button);
 
+
+        ivToWeather.setOnClickListener(this);
         listView.addFooterView(footView);
         listView.addHeaderView(relativeLayout);
 
@@ -263,6 +267,16 @@ public class News extends Fragment implements AdapterView.OnItemClickListener , 
         final Notification n = builder.build();
         //Toast.makeText(getActivity(),"notification",Toast.LENGTH_SHORT).show();
         nm.notify(model.getTitle().hashCode(),n);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_to_weather:
+                Intent intent = new Intent(getActivity(), WeatherMainActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }
 

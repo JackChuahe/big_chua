@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="80dp">
+    <ImageView
+        android:id="@+id/weather_item_icon"
+        android:layout_gravity="center"
+        android:layout_width="40dp"
+        android:src="@mipmap/cloud_weather"
+        android:layout_height="40dp" />
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="THU"
+        android:id="@+id/weather_item_week"
+        android:textColor="#1d1d1d"
+        android:layout_marginLeft="10dp"
+        android:textSize="17sp"
+        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/weather_item_date"
+            android:layout_width="wrap_content"
+            android:textColor="#1d1d1d"
+            android:text="2015-05-11"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="16sp"
+        android:text="25°"
+        android:id="@+id/weather_item_low"
+        android:layout_marginLeft="23dp"
+        android:textColor="#1d1d1d"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/wather_item_progress"
+        android:layout_width="100dp"
+        android:orientation="horizontal"
+        android:background="@drawable/weather_corner_border"
+        android:layout_marginLeft="8dp"
+        android:layout_gravity="center"
+        android:layout_height="28dp"></LinearLayout>
+    <TextView
+        android:id="@+id/weather_item_high"
+        android:layout_width="wrap_content"
+        android:textSize="16sp"
+        android:text="40°"
+        android:layout_marginLeft="8dp"
+        android:textColor="#1d1d1d"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#979494"
+        android:layout_height="0.1dp">
+
+    </LinearLayout>
+</LinearLayout>
