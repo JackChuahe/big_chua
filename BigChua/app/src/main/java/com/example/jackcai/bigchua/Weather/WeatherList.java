@@ -36,7 +36,7 @@ public class WeatherList  {
 
         adapter = new MyAdapter(weatherModels,context);
         listView.setAdapter(adapter);
-        context.progressDialog.dismiss();
+        //context.progressDialog.dismiss();
     }
 }
 

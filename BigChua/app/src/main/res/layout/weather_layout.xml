@@ -9,6 +9,13 @@
         android:background="#ececec"
         android:elevation="8dp"
         android:layout_height="70dp">
+        <ImageView
+            android:id="@+id/go_back"
+            android:layout_width="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@mipmap/goback"
+            android:layout_height="30dp" />
         <LinearLayout
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"

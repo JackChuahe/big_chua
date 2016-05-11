@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jackcai.bigchua.R;
@@ -33,13 +35,14 @@ import java.util.List;
 /**
  * Created by JackCai on 2016/5/11.
  */
-public class WeatherMainActivity extends AppCompatActivity {
+public class WeatherMainActivity extends AppCompatActivity implements View.OnClickListener{
     private ViewPager viewPager;
     private MyPageAdapter adapter;
     private List<View>views = new ArrayList<View>();
     private List<WeatherModel> weatherModels;
     public ProgressDialog progressDialog;
-
+    private final static int [] WEATHERS = {R.mipmap.big_rain_weather,R.mipmap.cloud_weather,R.mipmap.lightning,R.mipmap.night_clouds,R.mipmap.rain_weather,R.mipmap.snow_,R.mipmap.strong_wind_,R.mipmap.sun_smile,R.mipmap.sw_wind_,R.mipmap.temperature_,R.mipmap.tornado,R.mipmap.wind};
+    private ImageView ivGoBack;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,9 @@ public class WeatherMainActivity extends AppCompatActivity {
         getWindow().setFlags(Window.FEATURE_NO_TITLE, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         viewPager = (ViewPager)findViewById(R.id.weather_view_pager);
+        ivGoBack = (ImageView)findViewById(R.id.go_back);
+
+        ivGoBack.setOnClickListener(this);
         progressDialog  = new ProgressDialog(this);
         initialData();
         SetStatusBarTextColor.setMiuiStatusBarDarkMode(this,true);
@@ -67,8 +73,14 @@ public class WeatherMainActivity extends AppCompatActivity {
         progressDialog.show();
         //设置内容 下载数据
         LayoutInflater inflater = LayoutInflater.from(this);
+
+
+        View centerView = inflater.inflate(R.layout.weather_center_layout,null);
+        views.add(centerView);
+
         View view = inflater.inflate(R.layout.detail_weather,null);
         views.add(view);
+
 
 
         adapter = new MyPageAdapter(views);
@@ -78,10 +90,50 @@ public class WeatherMainActivity extends AppCompatActivity {
         aysnWeatherTask.execute("成都");
     }
 
-    public void callBack(List<WeatherModel> models){
+    public void callBack(List<WeatherModel> models ,CenterCity city){
+        progressDialog.dismiss();
         if (models != null){
             weatherModels = models;
-            WeatherList weatherList = new WeatherList(views.get(0),this,weatherModels);
+            WeatherList weatherList = new WeatherList(views.get(1),this,weatherModels);
+            setCenter(city);
+        }
+    }
+
+    /**
+     *
+     * @param center
+     */
+    private void setCenter(CenterCity center){
+        View view = views.get(0);
+        TextView tvLow = (TextView) view.findViewById(R.id.low_tempture);
+        TextView tvHigh = (TextView) view.findViewById(R.id.high_tempture);
+        TextView tvCenterTemp = (TextView) view.findViewById(R.id.weather_center_temper_tv);
+        TextView tvAir = (TextView) view.findViewById(R.id.weather_center_air_tv);
+        TextView tvWind = (TextView) view.findViewById(R.id.weather_center_wind_tv);
+        TextView tvDayTime = (TextView) view.findViewById(R.id.weather_center_dayTime_tv);
+        TextView tvhumidity = (TextView) view.findViewById(R.id.weather_center_humidity_tv);
+        TextView tvDress = (TextView) view.findViewById(R.id.weather_center_dress_tv);
+        TextView tvExres = (TextView) view.findViewById(R.id.weather_center_exrise_tv);
+        ImageView ivIcon = (ImageView)view.findViewById(R.id.weather_center_icon_iv);
+
+        tvLow.setText(weatherModels.get(0).getLow()+"℃");
+        tvHigh.setText(center.getTempture());
+        tvCenterTemp.setText(weatherModels.get(0).getHigh()+"");
+        tvAir.setText(center.getAirCondition());
+        tvWind.setText(center.getWind());
+        tvDayTime.setText(center.getWeather().replace("℃",""));
+        tvhumidity.setText(center.getHumidity());
+        tvDress.setText(center.getDressing());
+        tvExres.setText(center.getExercise());
+        ivIcon.setImageResource(WEATHERS[center.getDayTime()]);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.go_back:
+                finish();
+                break;
         }
     }
 }
@@ -154,14 +206,40 @@ class MyAysnWeatherTask extends AsyncTask<String,Void,String>{
             JSONArray result = obj.getJSONArray("result");
             CenterCity centerCity = new CenterCity();
             centerCity.setAirCondition(result.getJSONObject(0).getString("airCondition"));
-            centerCity.setCity(result.getJSONObject(0).getString("city"));
             centerCity.setColdIndex(result.getJSONObject(0).getString("coldIndex"));
             centerCity.setDressing(result.getJSONObject(0).getString("dressingIndex"));
             centerCity.setExercise(result.getJSONObject(0).getString("exerciseIndex"));
+            centerCity.setHumidity(result.getJSONObject(0).getString("humidity"));
+            centerCity.setTempture(result.getJSONObject(0).getString("temperature"));
+            centerCity.setWind(result.getJSONObject(0).getString("wind"));
+            setDayTime(centerCity,result.getJSONObject(0).getString("weather"));
+            centerCity.setWeather(result.getJSONObject(0).getString("weather"));
             JSONArray future = result.getJSONObject(0).getJSONArray("future");
 
+
+
+            WeatherModel model0 = new WeatherModel();
+            JSONObject object1 = future.getJSONObject(0);
+            try {
+
+
+                model0.setDate(object1.getString("date"));
+                setDayTime(model0,object1.getString("dayTime"));
+                setNight(model0,object1.getString("night"));
+                setLowHigh(model0,object1.getString("temperature"));
+                setWeek(model0,object1.getString("week"));
+
+            }catch (JSONException e){
+                if (model0.getDayTime() == 0){
+                    setNight(model0,object1.getString("night"));
+                }
+                setLowHigh(model0,object1.getString("temperature"));
+                setWeek(model0,object1.getString("week"));
+            }
+            weatherModels.add(model0);
+
             int j = future.length();
-            for (int i = 0; i < j; ++i){
+            for (int i = 1; i < j; ++i){
                 JSONObject object = future.getJSONObject(i);
                 WeatherModel model = new WeatherModel();
                 model.setDate(object.getString("date"));
@@ -171,7 +249,7 @@ class MyAysnWeatherTask extends AsyncTask<String,Void,String>{
                 setWeek(model,object.getString("week"));
                 weatherModels.add(model);
             }
-            activity.callBack(weatherModels);
+            activity.callBack(weatherModels,centerCity);
         } catch (JSONException e) {
             activity.progressDialog.dismiss();
            Toast toast = Toast.makeText(activity,"解析数据出错!",Toast.LENGTH_LONG);
@@ -202,9 +280,33 @@ class MyAysnWeatherTask extends AsyncTask<String,Void,String>{
     private void setLowHigh(WeatherModel model,String con){
         String value[] = con.replace("°C","").split("/");
         model.setHigh(Integer.parseInt(value[0].trim()));
-        model.setLow(Integer.parseInt(value[1].trim()));
+        if (value.length > 1)
+            model.setLow(Integer.parseInt(value[1].trim()));
+        else {
+            model.setLow(15);
+        }
     }
     private void setDayTime(WeatherModel model,String con){
+        if (con.equals("晴")){
+            model.setDayTime(WeatherModel.SUN);
+        }else if (con.equals("中雨")){
+            model.setDayTime(WeatherModel.RAIN);
+        }else if(con.equals("小雨")){
+            model.setDayTime(WeatherModel.RAIN);
+        }else if (con.equals("阴")){
+            model.setDayTime(WeatherModel.CLOUD);
+        }else if (con.equals("多云")){
+            model.setDayTime(WeatherModel.CLOUD);
+        }else if (con.equals("阴天")){
+            model.setDayTime(WeatherModel.NIGTH_CLOUD);
+        }else if (con.equals("阵雨")){
+            model.setDayTime(WeatherModel.BIG_RAIN);
+        }else{
+            model.setDayTime(WeatherModel.SMALL_WIND);
+        }
+    }
+
+    private void setDayTime(CenterCity model,String con){
         if (con.equals("晴")){
             model.setDayTime(WeatherModel.SUN);
         }else if (con.equals("中雨")){
@@ -246,10 +348,57 @@ class MyAysnWeatherTask extends AsyncTask<String,Void,String>{
 }
 class CenterCity{
     private String airCondition;
-    private String city;
     private String coldIndex;
     private String dressing;
     private String exercise;
+    private String humidity;
+    private String tempture;
+    private int dayTime;
+
+    public String getWeather() {
+        return weather;
+    }
+
+    public void setWeather(String weather) {
+        this.weather = weather;
+    }
+
+    private String weather;
+
+    public int getDayTime() {
+        return dayTime;
+    }
+
+    public void setDayTime(int dayTime) {
+        this.dayTime = dayTime;
+    }
+
+    public String getHumidity() {
+
+        return humidity;
+    }
+
+    public void setHumidity(String humidity) {
+        this.humidity = humidity;
+    }
+
+    public String getTempture() {
+        return tempture;
+    }
+
+    public void setTempture(String tempture) {
+        this.tempture = tempture;
+    }
+
+    public String getWind() {
+        return wind;
+    }
+
+    public void setWind(String wind) {
+        this.wind = wind;
+    }
+
+    private String wind;
 
     public String getAirCondition() {
         return airCondition;
@@ -259,13 +408,7 @@ class CenterCity{
         this.airCondition = airCondition;
     }
 
-    public String getCity() {
-        return city;
-    }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     public String getColdIndex() {
         return coldIndex;

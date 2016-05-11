@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#F1f1f1"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/center_img"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:paddingTop="20dp"
+                    android:id="@+id/low_tempture"
+                    android:layout_width="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:text="19℃"
+                    android:textColor="#363434"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="#363434"
+                    android:text="LOW"
+                    android:textSize="17sp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/center_img"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:paddingTop="20dp"
+                    android:id="@+id/high_tempture"
+                    android:layout_width="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:text="19℃"
+                    android:textColor="#363434"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="#363434"
+                    android:text="HIGH"
+                    android:textSize="17sp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/center_img"
+                android:layout_centerInParent="true"
+                android:layout_width="150dp"
+                android:src="@mipmap/center"
+                android:layout_height="150dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="38"
+                android:layout_centerInParent="true"
+                android:id="@+id/weather_center_temper_tv"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="#FFFFFF"
+                android:text="℃"
+                android:layout_toRightOf="@+id/weather_center_temper_tv"
+                android:layout_marginTop="55dp"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+<LinearLayout
+    android:layout_marginTop="40dp"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+<TextView
+    android:layout_width="wrap_content"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:text="Now Weather"
+    android:textColor="#363434"
+    android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/weather_center_icon_iv"
+        android:layout_marginLeft="10dp"
+        android:layout_width="30dp"
+        android:src="@mipmap/wind"
+        android:layout_height="30dp" />
+</LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:textColor="#646363"
+                android:text="天气："
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/weather_center_dayTime_tv"
+                android:layout_width="wrap_content"
+                android:textColor="#646363"
+                android:text="晴"
+                android:textSize="17sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:textColor="#646363"
+                android:text="风力："
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/weather_center_wind_tv"
+                android:layout_width="wrap_content"
+                android:textColor="#646363"
+                android:text="西南风2级"
+                android:textSize="17sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:textColor="#646363"
+            android:text="湿度： "
+            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/weather_center_humidity_tv"
+                android:layout_width="wrap_content"
+                android:textColor="#646363"
+                android:text="13%"
+                android:textSize="17sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:textColor="#646363"
+                android:text="空气质量： "
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/weather_center_air_tv"
+                android:layout_width="wrap_content"
+                android:textColor="#646363"
+                android:text="良好"
+                android:textSize="17sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:textColor="#646363"
+                android:text="穿衣指数："
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="#646363"
+                android:id="@+id/weather_center_dress_tv"
+                android:text="薄短袖类"
+                android:textSize="17sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:textColor="#646363"
+                android:text="锻炼系数： "
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="#646363"
+                android:text="不适宜"
+                android:textSize="17sp"
+                android:id="@+id/weather_center_exrise_tv"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

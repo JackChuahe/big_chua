@@ -16,7 +16,7 @@
     android:id="@+id/iv_to_weather"
     android:layout_width="35dp"
     android:layout_marginLeft="10dp"
-    android:src="@mipmap/sun_smile"
+    android:src="@mipmap/weather_logo"
     android:layout_centerVertical="true"
     android:layout_height="35dp" />
         <LinearLayout
